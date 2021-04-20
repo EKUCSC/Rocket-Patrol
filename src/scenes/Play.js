@@ -74,12 +74,15 @@ this.clock = this.time.delayedCall(this.moveSpeed = game.settings.spaceshipSpeed
 
     update() {
           // check key input for restart
-  if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
-    this.scene.restart();
-}
-if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-    this.scene.start("menuScene");
-}
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) 
+        {
+        this.scene.restart();
+        }
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) 
+        {
+        this.scene.start("menuScene");
+        }
 
         // update spaceships (x3)
         this.ship01.update();
@@ -90,28 +93,29 @@ if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
         this.starfield.tilePositionX -= 5;
         // check collisions
 
-// check collisions
-if(this.checkCollision(this.p1Rocket, this.ship03)) {
-    this.p1Rocket.reset();
-    this.shipExplode(this.ship03);   
-  }
-  if (this.checkCollision(this.p1Rocket, this.ship02)) {
-    this.p1Rocket.reset();
-    this.shipExplode(this.ship02);
-  }
-  if (this.checkCollision(this.p1Rocket, this.ship01)) {
-    this.p1Rocket.reset();
-    this.shipExplode(this.ship01);
-  }
+        // check collisions
+        if(this.checkCollision(this.p1Rocket, this.ship03)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship03);   
+        }
+        if (this.checkCollision(this.p1Rocket, this.ship02)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship02);
+        }
+        if (this.checkCollision(this.p1Rocket, this.ship01)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship01);
+        }
 
-  if (!this.gameOver) {               
-    this.p1Rocket.update();         // update rocket sprite
-    this.ship01.update();           // update spaceships (x3)
-    this.ship02.update();
-    this.ship03.update();
-} 
+        if (!this.gameOver) {               
+            this.p1Rocket.update();         // update rocket sprite
+            this.ship01.update();           // update spaceships (x3)
+            this.ship02.update();
+            this.ship03.update();
+        } 
 
     }
+    
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
@@ -136,9 +140,9 @@ if(this.checkCollision(this.p1Rocket, this.ship03)) {
           boom.destroy();                       // remove explosion sprite
         });       
           // score add and repaint
-  this.p1Score += ship.points;
-  this.scoreLeft.text = this.p1Score;      
-  this.sound.play('sfx_explosion'); 
+        this.p1Score += ship.points;
+        this.scoreLeft.text = this.p1Score;      
+        this.sound.play('sfx_explosion'); 
       }
 }
 
