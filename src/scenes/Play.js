@@ -59,6 +59,7 @@ class Play extends Phaser.Scene {
             this.ship01.reset();
             }
         }
+
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
@@ -71,3 +72,4 @@ class Play extends Phaser.Scene {
         }
     }
 }
+
