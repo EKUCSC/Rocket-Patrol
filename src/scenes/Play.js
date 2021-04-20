@@ -63,12 +63,13 @@ this.p1Score = 0;
   // GAME OVER flag
 this.gameOver = false;
 
-// 60-second play clock
-scoreConfig.fixedWidth = 0;
-this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-    this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-    this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for menu', scoreConfig).setOrigin(0.5);
-}, null, this);
+        // 60-second play clock
+        scoreConfig.fixedWidth = 0;
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- to Menu', scoreConfig).setOrigin(0.5);
+            this.gameOver = true;
+        }, null, this);
     }
 
     update() {
@@ -87,6 +88,13 @@ this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
         this.starfield.tilePositionX -= 5;
         // check collisions
 
+        if (!this.gameOver) {               
+          this.p1Rocket.update();         // update rocket sprite
+          this.ship01.update();           // update spaceships (x3)
+          this.ship02.update();
+          this.ship03.update();
+      } 
+
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
@@ -100,13 +108,6 @@ this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
-
-        if (!this.gameOver) {               
-            this.p1Rocket.update();         // update rocket sprite
-            this.ship01.update();           // update spaceships (x3)
-            this.ship02.update();
-            this.ship03.update();
-        } 
 
     }
     
