@@ -2,7 +2,7 @@
     type: Phaser.AUTO,
     width: 640,
     height: 480,
-    scene: [ Menu, Play ]
+    scene: [ Menu, Play, PlayCoop ]
   }
 
   let game = new Phaser.Game(config);
@@ -12,4 +12,4 @@
   let borderPadding = borderUISize / 3;
 
   // reserve keyboard vars
-  let keyF, keyR, keyLEFT, keyRIGHT;
+  let keyF, keyR, keyLEFT, keyRIGHT, keyA, keyD, keyW;

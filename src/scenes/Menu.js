@@ -31,10 +31,14 @@ class Menu extends Phaser.Scene {
       menuConfig.backgroundColor = '#00FF00';
       menuConfig.color = '#000';
       this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press A for Novice or D for Expert For Coop', menuConfig).setOrigin(0.0);
 
       // define keys
       keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
       keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+      keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+      keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   update() {
@@ -56,5 +60,26 @@ class Menu extends Phaser.Scene {
       this.sound.play('sfx_select');
       this.scene.start("playScene");    
     }
+
+    if (Phaser.Input.Keyboard.JustDown(keyA)) {
+      // Expert mode
+      game.settings = {
+        spaceshipSpeed: 3,
+        gameTimer: 60000    
+      }
+      this.sound.play('sfx_select');
+      this.scene.start("playSceneCoop");    
+    }
+
+  if (Phaser.Input.Keyboard.JustDown(keyD)) {
+    // Expert mode
+    game.settings = {
+      spaceshipSpeed: 4,
+      gameTimer: 45000    
+    }
+    this.sound.play('sfx_select');
+    this.scene.start("playSceneCoop");    
+  }
+
   }
 }
