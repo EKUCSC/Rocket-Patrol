@@ -9,13 +9,15 @@ class Play extends Phaser.Scene {
         this.load.image('spaceship', 'assets/spaceship.png');
         this.load.image('starfield', 'assets/starfield.png');
         this.load.spritesheet('explosion', 'assets/explosion.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 6});
-    }
+        this.load.image('explosionParticle', 'assets/explosion-particle.png');
+
+      }
     
     create() {
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // green UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+        //this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
@@ -130,20 +132,30 @@ this.gameOver = false;
     }
 
     shipExplode(ship) {
-        // temporarily hide ship
-        ship.alpha = 0;
-        // create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
-        boom.anims.play('explode');             // play explode animation
-        boom.on('animationcomplete', () => {    // callback after anim completes
-          ship.reset();                         // reset ship position
-          ship.alpha = 1;                       // make ship visible again
-          boom.destroy();                       // remove explosion sprite
-        });       
-          // score add and repaint
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;      
-        this.sound.play('sfx_explosion'); 
-      }
+      // temporarily hide ship
+      ship.alpha = 0;
+      // create explosion sprite at ship's position
+      let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+      boom.anims.play('explode');             // play explode animation
+      boom.on('animationcomplete', () => {    // callback after anim completes
+        ship.reset();                         // reset ship position
+        ship.alpha = 1;                       // make ship visible again
+        boom.destroy();                       // remove explosion sprite
+      });       
+        // score add and repaint
+      this.p1Score += ship.points;
+      this.scoreLeft.text = this.p1Score;      
+      this.sound.play('sfx_explosion'); 
+
+
+        //add particle effects
+
+        var particles = this.add.particles('explosionParticle');
+
+        var emitter = particles.createEmitter();
+
+        emitter.setSpeed(50);
+        emitter.explode( 100, ship.x + 25, ship.y + 25);
+    }
 }
 
